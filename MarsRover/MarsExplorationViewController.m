@@ -7,6 +7,7 @@
 //
 
 #import "MarsExplorationViewController.h"
+#import "RoversControllerInterpreter.h"
 
 @implementation MarsExplorationViewController
 
@@ -189,6 +190,15 @@
 
     _plateauView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext(); 
+    
+    //test code
+    RoversController *roversController = [[RoversController alloc] init];
+    RoversControllerInterpreter *rcInterpreter = [[RoversControllerInterpreter alloc] initWithRoversController:roversController];
+    [rcInterpreter receiveInputText:@"5 5"];
+    [rcInterpreter receiveInputText:@"5 5 N"];
+    
+    //
+    
     return YES;    
 }   
 

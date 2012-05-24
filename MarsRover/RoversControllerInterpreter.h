@@ -12,21 +12,21 @@
 #import <Foundation/Foundation.h>
 #import "RoversController.h"
 
-@class InterpreterState;
+@class RCInterpreterState;
 
 @interface RoversControllerInterpreter : NSObject
 {
     NSString                    *_currentInput;
     unsigned int                _validCommandLineCount;
-    InterpreterState            *_currentState;
+    RCInterpreterState            *_currentState;
     id<RoversControllDelegate>  _roversControllerDelegate;
 }
 @property (assign, nonatomic) id<RoversControllDelegate> roversControllerDelegate;
 @property (assign, nonatomic) unsigned int validCommandLineCount;
-@property (retain, nonatomic) InterpreterState *currentState;
+@property (retain, nonatomic) RCInterpreterState *currentState;
 @property (retain, nonatomic) NSString *currentInput;
 
--(id)InitWithRoversController:(RoversController*)roversController;
--(BOOL)ReceiveInputText:(NSString*)inputText;
+-(id)initWithRoversController:(RoversController*)roversController;
+-(BOOL)receiveInputText:(NSString*)inputText;
 
 @end

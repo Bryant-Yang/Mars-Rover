@@ -9,7 +9,6 @@
 #import "RoversController.h"
 
 @implementation RoversController
-//@synthesize explorationRange = _explorationRange;
 
 -(id)init
 {
@@ -21,22 +20,40 @@
     return self;
 }
 
--(void)SetExplorationRange:(Rect)rangeRect
+-(BOOL)SetExplorationRangeUpperRight:(CGPoint)upperRight
 {
-    _explorationRange = rangeRect;
+    if(upperRight.x < 0 || upperRight.y < 0)
+    {
+        return NO;   
+    }
+    else
+    {
+        _explorationRangeUpperRight = upperRight;
+        return YES;
+    }
 }
 
--(Rect)GetExplorationRange
+
+-(BOOL)DeployRoverWithPosition:(CGPoint)pos headingChar:(NSString*)headingString
 {
-    return _explorationRange;
+    if(pos.x < 0 || pos.y < 0 || pos.x > _explorationRangeUpperRight.x || pos.y > _explorationRangeUpperRight.y)
+    {
+        return NO;
+    }
+    else
+    {
+        @autoreleasepool {
+            Rover *rover = [[[Rover alloc] init] autorelease];
+            rover.explorationRangeUpperRight = _explorationRangeUpperRight;
+            rover.position = pos;
+            [rover setHeadingStateByString:headingString];
+            [_roversList addObject:rover];
+        }
+        return YES;
+    }
 }
 
--(BOOL)DeployRoverWithPosition:(CGPoint)pos Heading:(char)heading
-{
-    return YES;
-}
-
--(void)ExecuteNavigation
+-(void)ExecuteNavigationByInputString:(NSString *)inputString
 {
     
 }

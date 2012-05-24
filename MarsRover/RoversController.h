@@ -7,25 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Rover.h"
 
 @class RoversControllerInterpreter;
 
 @protocol RoversControllDelegate <NSObject>
--(void) SetExplorationRange:(Rect)rangeRect;
--(Rect) GetExplorationRange;
--(BOOL) DeployRoverWithPosition:(CGPoint)pos Heading:(char)heading;
--(void) ExecuteNavigation;
+-(BOOL) SetExplorationRangeUpperRight:(CGPoint)upperRight;
+-(BOOL) DeployRoverWithPosition:(CGPoint)pos headingChar:(NSString*)headingString;
+-(void) ExecuteNavigationByInputString:(NSString*)inputString;
 @end
 
 
 @interface RoversController : NSObject <RoversControllDelegate>
 {
-    Rect _explorationRange;
-    RoversControllerInterpreter *_inputInterpreter;
+    CGPoint _explorationRangeUpperRight;
+    Rover           *_currentRover;
+    NSMutableArray  *_roversList;
 }
-//@property (assign, nonatomic) Rect explorationRange;
 
--(BOOL)ExecuteInputText:(NSString*)inputText;
 -(NSString*) ReportRoversState;
 
 @end

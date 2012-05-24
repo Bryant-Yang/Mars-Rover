@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0B98C5E156E6BBF00A3C5AD /* Rover.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C5D156E6BBF00A3C5AD /* Rover.m */; };
+		C0B98C62156E9A3F00A3C5AD /* RoverHeadingState.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */; };
+		C0B98C65156ECE7300A3C5AD /* RCInterpreterState.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */; };
 		C0D5F9661563778E004FB0A9 /* RoversControllerInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */; };
 		C32DA2B0155573B600F8FBBE /* RoversController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DA2AF155573B600F8FBBE /* RoversController.m */; };
 		C341332215558D0E00D5DDF8 /* marsface.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C341332115558D0E00D5DDF8 /* marsface.jpg */; };
@@ -22,6 +25,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0B98C5C156E6BBF00A3C5AD /* Rover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rover.h; sourceTree = "<group>"; };
+		C0B98C5D156E6BBF00A3C5AD /* Rover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rover.m; sourceTree = "<group>"; };
+		C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoverHeadingState.h; sourceTree = "<group>"; };
+		C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoverHeadingState.m; sourceTree = "<group>"; };
+		C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RCInterpreterState.h; sourceTree = "<group>"; };
+		C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCInterpreterState.m; sourceTree = "<group>"; };
 		C0D5F9641563778E004FB0A9 /* RoversControllerInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoversControllerInterpreter.h; sourceTree = "<group>"; };
 		C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoversControllerInterpreter.m; sourceTree = "<group>"; };
 		C32DA2AE155573B600F8FBBE /* RoversController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoversController.h; sourceTree = "<group>"; };
@@ -101,8 +110,14 @@
 				C38ABCDA1555700D0047DB26 /* MainStoryboard.storyboard */,
 				C32DA2AE155573B600F8FBBE /* RoversController.h */,
 				C32DA2AF155573B600F8FBBE /* RoversController.m */,
+				C0B98C5C156E6BBF00A3C5AD /* Rover.h */,
+				C0B98C5D156E6BBF00A3C5AD /* Rover.m */,
+				C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */,
+				C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */,
 				C0D5F9641563778E004FB0A9 /* RoversControllerInterpreter.h */,
 				C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */,
+				C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */,
+				C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */,
 				C3EC97B01555639600640AFC /* ReportViewController.h */,
 				C3EC97B11555639600640AFC /* ReportViewController.m */,
 				C3EC979E1555524600640AFC /* AppDelegate.h */,
@@ -194,6 +209,9 @@
 				C3EC97B21555639600640AFC /* ReportViewController.m in Sources */,
 				C32DA2B0155573B600F8FBBE /* RoversController.m in Sources */,
 				C0D5F9661563778E004FB0A9 /* RoversControllerInterpreter.m in Sources */,
+				C0B98C5E156E6BBF00A3C5AD /* Rover.m in Sources */,
+				C0B98C62156E9A3F00A3C5AD /* RoverHeadingState.m in Sources */,
+				C0B98C65156ECE7300A3C5AD /* RCInterpreterState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
