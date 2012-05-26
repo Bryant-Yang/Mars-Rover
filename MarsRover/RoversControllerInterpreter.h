@@ -18,8 +18,10 @@
 {
     NSString                    *_currentInput;
     unsigned int                _validCommandLineCount;
-    RCInterpreterState            *_currentState;
+    RCInterpreterState          *_currentState;
     id<RoversControllDelegate>  _roversControllerDelegate;
+    
+    NSString                    *_errorMessage;
 }
 @property (assign, nonatomic) id<RoversControllDelegate> roversControllerDelegate;
 @property (assign, nonatomic) unsigned int validCommandLineCount;
@@ -28,5 +30,6 @@
 
 -(id)initWithRoversController:(RoversController*)roversController;
 -(BOOL)receiveInputText:(NSString*)inputText;
+-(NSString*)getErrorMessage;
 
 @end

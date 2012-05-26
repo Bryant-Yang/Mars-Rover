@@ -20,6 +20,7 @@
     NSString *_regExPattern;
 }
 -(BOOL)interpreterExecute:(RoversControllerInterpreter*)interpreter;
+-(NSString*)getErrorMessage;
 @end
 
 

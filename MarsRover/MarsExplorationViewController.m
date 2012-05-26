@@ -8,11 +8,12 @@
 
 #import "MarsExplorationViewController.h"
 #import "RoversControllerInterpreter.h"
+#import "PlateauGridView.h"
+#import "RoverView.h"
 
 @implementation MarsExplorationViewController
 
-//@synthesize plateauView = _plateauView;
-//@synthesize instructionField = _instructionField;
+@synthesize roversController = _roversController;
 
 - (void)viewDidLoad
 {
@@ -24,17 +25,55 @@
     [_plateauView sizeToFit];
     _plateauView.userInteractionEnabled = YES;
     
+    _plateauGridView = [PlateauGridView alloc];
+    
     _instructionField.delegate = self;
+    
+    _roversController = [[RoversController alloc] init];
+    _rcInterpreter = [[RoversControllerInterpreter alloc] initWithRoversController:_roversController];
+    _roverViewList = [[NSMutableArray alloc] init];
+        
+    [self addObserver:self
+           forKeyPath:@"roversController.explorationRangeUpperRight"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:NULL];
+    
+    [self addObserver:self
+           forKeyPath:@"roversController.currentRover"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:NULL];
+    
+    [self addObserver:self
+           forKeyPath:@"roversController.currentRover.position"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:NULL];
+    
+    [self addObserver:self
+           forKeyPath:@"roversController.currentRover.headingState"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:NULL];
 }
 
 - (void)viewDidUnload
 {
+    [self removeObserver:self forKeyPath:@"roversController.explorationRangeUpperRight"];
+    [self removeObserver:self forKeyPath:@"roversController.currentRover"];
+    [self removeObserver:self forKeyPath:@"roversController.currentRover.position"];
+    [self removeObserver:self forKeyPath:@"roversController.currentRover.headingState"];
+    [_plateauGridView release];
+    _plateauGridView = nil;
     [_plateauView release];
     _plateauView = nil;
     [_instructionField release];
     _instructionField = nil;
     [_overviewButton release];
     _overviewButton = nil;
+    [_roversController release];
+    _roversController = nil;
+    [_rcInterpreter release];
+    _rcInterpreter = nil;
+    [_roverViewList release];
+    _roverViewList = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -45,9 +84,6 @@
 }
 
 - (void)dealloc {
-    [_plateauView release];
-    [_instructionField release];
-    [_overviewButton release];
     [super dealloc];
 }
 
@@ -131,75 +167,117 @@
     [self animateTextField:_instructionField up:NO];
 }
 
-#pragma mark Handle input texts
--(BOOL)textFieldShouldReturn:(UITextField *)textField{    
-    [textField resignFirstResponder];
-#define kMarginOfGridOnBackground 20
-#define kGridUnitDistance   50
+- (void)movePlateauViewToLeftBottom
+{
+    const float movementDuration = 0.3f;
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
     
-    UIGraphicsBeginImageContext(_plateauView.frame.size);
-    
-    GLfloat bgWidth  = _plateauView.frame.size.width;
+    CGPoint newOrigin;
+    newOrigin.x = 0;
+    newOrigin.y = _plateauViewOriginalFrame.size.height - _plateauView.frame.size.height;
+    CGRect  newFrame = CGRectMake(newOrigin.x, newOrigin.y, _plateauView.frame.size.width,  _plateauView.frame.size.height);
+    [_plateauView setFrame:newFrame];
+    [UIView commitAnimations];
+}
+
+-(void)showGridWithRoverExplorationRange:(CGPoint)roverUpperRight
+{
     GLfloat bgHeight = _plateauView.frame.size.height; 
-    //keep the background picture remaining
-    [_plateauView.image drawInRect:CGRectMake(0, 0, bgWidth, bgHeight)];
 
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
 
-    CGContextSetLineCap(ctx, kCGLineCapButt);
-    CGContextSetLineWidth(ctx,2.0);
-    CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 1.0);
+    CGSize  gridSize = [PlateauGridView getProperSizeByUpperLeftPoint:roverUpperRight];
+    CGFloat gridFrameLeft   = 0;
+    CGFloat gridFrameTop    = bgHeight - gridSize.height;
+    CGRect  gridFrame = CGRectMake(gridFrameLeft, gridFrameTop, gridSize.width, gridSize.height);
+    [_plateauGridView initWithFrame:gridFrame];
+    [_plateauGridView setBackgroundColor:[UIColor clearColor]];
+    [_plateauView addSubview:_plateauGridView];
+    
+    [self movePlateauViewToLeftBottom];
+}
 
-    CGContextBeginPath(ctx);
-    CGPoint leftBottom = {kMarginOfGridOnBackground, bgHeight - kMarginOfGridOnBackground};
-    GLfloat startPointX = leftBottom.x;
-    GLfloat startPointY = leftBottom.y;
-    //draw vertical line
-    int columnNumber = 0;
-    @autoreleasepool {
-        while(startPointX < bgWidth - kMarginOfGridOnBackground)
-        {
-            NSString *strColNum = [[[NSString alloc] initWithFormat:@"%d", columnNumber] autorelease];
-            
-            CGContextMoveToPoint(ctx, startPointX, leftBottom.y);
-            CGContextAddLineToPoint(ctx, startPointX, kMarginOfGridOnBackground);
-            CGContextStrokePath(ctx);
-            
-            [strColNum drawAtPoint:CGPointMake(startPointX, leftBottom.y) withFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
-            
-            startPointX += kGridUnitDistance;
-            columnNumber++;
-        }
+-(void)addRoverViewByCurrentRover:(Rover*)rover
+{
+    @autoreleasepool 
+    {
+        RoverView *roverView = [[[RoverView alloc] initWithImage:[UIImage imageNamed:@"roverwest.png"]] autorelease];
+        [roverView sizeToFit];
+        [roverView changeHeadingByHeadingString:[rover getHeadingString]];
+          
+        CGPoint roverViewOrigin = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
+        CGFloat roverViewWidth = roverView.frame.size.width;
+        CGFloat roverViewHeight = roverView.frame.size.height;
+        
+        roverView.frame = CGRectMake(roverViewOrigin.x - roverViewWidth / 2, roverViewOrigin.y - roverViewHeight / 2, roverViewWidth, roverViewHeight);
+        
+        [_plateauGridView addSubview:roverView];
+        [_roverViewList addObject:roverView];
+        _currentRoverViewIndex++;
     }
-    //draw horizon line
-    int rowNumber = 0;
-    @autoreleasepool {
-        while(startPointY > kMarginOfGridOnBackground)
-        {
-            NSString *strRowNum = [[[NSString alloc] initWithFormat:@"%d", rowNumber] autorelease];
-            CGContextMoveToPoint(ctx, leftBottom.x, startPointY);
-            CGContextAddLineToPoint(ctx, bgWidth - kMarginOfGridOnBackground, startPointY);
-            CGContextStrokePath(ctx);
-            
-            [strRowNum drawAtPoint:CGPointMake(leftBottom.x, startPointY) withFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
-            
-            startPointY -= kGridUnitDistance;
-            rowNumber++;
-        }
-    }
+}
 
-    _plateauView.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext(); 
+-(void)updateRoverViewByCurrentRover:(Rover*)rover
+{
+    RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
     
-    //test code
-    RoversController *roversController = [[RoversController alloc] init];
-    RoversControllerInterpreter *rcInterpreter = [[RoversControllerInterpreter alloc] initWithRoversController:roversController];
-    [rcInterpreter receiveInputText:@"5 5"];
-    [rcInterpreter receiveInputText:@"5 5 N"];
+    const float movementDuration = 2.0f;
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
     
-    //
+    [currentRoverView changeHeadingByHeadingString:[rover getHeadingString]];
     
+    CGFloat roverViewWidth = currentRoverView.frame.size.width;
+    CGFloat roverViewHeight = currentRoverView.frame.size.height;
+    CGPoint newPos = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
+    [currentRoverView setFrame:CGRectMake(newPos.x - roverViewWidth / 2, newPos.y - roverViewHeight / 2, roverViewWidth, roverViewHeight)];
+
+    [UIView commitAnimations];
+}
+
+#pragma mark Handle input texts
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+   
+    if(![_rcInterpreter receiveInputText:[textField text]])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't execute input command" 
+                                                        message:[_rcInterpreter getErrorMessage] 
+                                                       delegate:nil 
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+    
+    NSLog(@"%@", [_roversController reportRoversState]);
+        
     return YES;    
 }   
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if([keyPath isEqualToString:@"roversController.explorationRangeUpperRight"])
+    {
+        [self showGridWithRoverExplorationRange:self.roversController.explorationRangeUpperRight];
+    }
+    
+    if([keyPath isEqualToString:@"roversController.currentRover"])
+    {
+        [self addRoverViewByCurrentRover:self.roversController.currentRover];
+    }
+    
+    if([keyPath isEqualToString:@"roversController.currentRover.position"] || [keyPath isEqualToString:@"roversController.currentRover.headingState"])
+    {
+        if([_roversController getRoversCount] == [_roverViewList count])
+            [self updateRoverViewByCurrentRover:self.roversController.currentRover];
+    }
+}
 
 @end

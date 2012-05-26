@@ -25,6 +25,8 @@
 -(void)turnLeft;
 -(void)turnRight;
 -(void)move;
+
+-(NSString*)getHeadingString;
 -(NSString*)reportState;
 
 @end

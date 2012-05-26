@@ -12,19 +12,23 @@
 @class RoversControllerInterpreter;
 
 @protocol RoversControllDelegate <NSObject>
--(BOOL) SetExplorationRangeUpperRight:(CGPoint)upperRight;
--(BOOL) DeployRoverWithPosition:(CGPoint)pos headingChar:(NSString*)headingString;
--(void) ExecuteNavigationByInputString:(NSString*)inputString;
+-(BOOL) setRangeUpperRight:(CGPoint)upperRight;
+-(BOOL) deployRoverWithPosition:(CGPoint)pos headingChar:(NSString*)headingString;
+-(void) executeNavigationByInputString:(NSString*)inputString;
 @end
 
 
 @interface RoversController : NSObject <RoversControllDelegate>
 {
     CGPoint _explorationRangeUpperRight;
-    Rover           *_currentRover;
+    NSUInteger      _currentRoverIndex;
     NSMutableArray  *_roversList;
+    Rover           *_currentRover;
 }
-
--(NSString*) ReportRoversState;
+@property (readonly, nonatomic) CGPoint explorationRangeUpperRight;
+@property (readonly, nonatomic) Rover* currentRover;
+-(NSUInteger)getCurrentRoverIndex;
+-(NSUInteger)getRoversCount;
+-(NSString*)reportRoversState;
 
 @end

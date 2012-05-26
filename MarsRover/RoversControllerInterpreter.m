@@ -38,22 +38,30 @@
 -(BOOL)receiveInputText:(NSString *)inputLine
 {
     self.currentInput = inputLine;
-    return [self InterpreterExecute];
+    return [self interpreterExecute];
 }
 
--(BOOL)InterpreterExecute
+-(BOOL)interpreterExecute
 {
-    return [_currentState interpreterExecute:self];
+    BOOL result = [_currentState interpreterExecute:self];
+    if(!result)
+    {
+        _errorMessage = [_currentState getErrorMessage];
+    }
+    
+    return result;
 }
 
+-(NSString*)getErrorMessage
+{
+    return _errorMessage;
+}
 
 -(void)dealloc{
     self.currentInput = nil;
     self.currentState = nil;
     [super dealloc];
 }
-
-
 @end
 
 

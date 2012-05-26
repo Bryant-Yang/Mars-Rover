@@ -14,32 +14,47 @@
 -(BOOL)interpreterExecute:(RoversControllerInterpreter*)interpreter
 {
     BOOL result = NO;
-    if([self isFormatMatchWithInput:interpreter.currentInput])
-        result = [self operateRoversController:interpreter];
-    else 
-        result = NO;
-    
-    if(result)
+    if(interpreter)
     {
-        interpreter.validCommandLineCount++;
+        if([self isFormatMatchWithInput:interpreter.currentInput])
+            result = [self operateRoversControllerByInterpreter:interpreter];
+        else 
+            result = NO;
+        
+        if(result)
+        {
+            interpreter.validCommandLineCount++;
+        }
     }
-    
     return result;
 }
 -(BOOL) isFormatMatchWithInput:(NSString*)inputText
 {
-    NSError *error=NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:_regExPattern options:0 error:&error];
-    
-    NSArray *matches = [regex matchesInString:inputText
-                                      options:NSRegularExpressionCaseInsensitive
-                                        range:NSMakeRange(0, [inputText length])];
-    return ([matches count] == 1);
+    if(inputText)
+    {
+        NSError *error=NULL;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:_regExPattern options:0 error:&error];
+        
+        NSArray *matches = [regex matchesInString:inputText
+                                  options:0
+                                  range:NSMakeRange(0, [inputText length])];
+        
+        return ([matches count] == 1);
+    }
+    else
+    {
+        return NO;
+    }
 }
 //Override this method.
--(BOOL)operateRoversController:(RoversControllerInterpreter*)interpreter
+-(BOOL)operateRoversControllerByInterpreter:(RoversControllerInterpreter*)interpreter
 {
     return NO;
+}
+//Override this method
+-(NSString*)getErrorMessage
+{
+    return @"";
 }
 @end
 
@@ -48,25 +63,25 @@
 -(StateNeedExplorationRange*)init
 {
     if((self = [super init]))
-        _regExPattern =  @"\\d+ \\d+";
+        _regExPattern =  @"^\\d+ \\d+$";
     
     return self;
 }
 
--(BOOL)operateRoversController:(RoversControllerInterpreter*)interpreter
+-(BOOL)operateRoversControllerByInterpreter:(RoversControllerInterpreter*)interpreter
 {
     BOOL result = NO;
-    
-    
-    if (interpreter.validCommandLineCount == 0)
+        
+    if (interpreter && interpreter.validCommandLineCount == 0)
     {
         int spacePos = [interpreter.currentInput rangeOfString:@" "].location;
         NSString *strX = [interpreter.currentInput substringToIndex:spacePos];
         NSString *strY = [interpreter.currentInput substringFromIndex:spacePos + 1];
         int right = [strX intValue];
         int top = [strY intValue];
-        if([interpreter.roversControllerDelegate SetExplorationRangeUpperRight:CGPointMake(right, top)])
+        if([interpreter.roversControllerDelegate setRangeUpperRight:CGPointMake(right, top)])
         {
+            
             @autoreleasepool
             {
                 interpreter.currentState = [[[StateWaitingRoverDeployment alloc] init] autorelease];
@@ -76,21 +91,26 @@
     }
     return result;
 }
+
+-(NSString*)getErrorMessage
+{
+    return @"Set upper right position failed.";
+}
 @end
 
 @implementation StateWaitingRoverDeployment
 -(StateWaitingRoverDeployment*)init
 {
     if((self = [super init]))
-        _regExPattern =  @"\\d+ \\d+ [NESW]";
+        _regExPattern =  @"^\\d+ \\d+ [NnEeSsWw]$";
     
     return self;
 }
--(BOOL)operateRoversController:(RoversControllerInterpreter*)interpreter
+-(BOOL)operateRoversControllerByInterpreter:(RoversControllerInterpreter*)interpreter
 {
     BOOL result = NO;
     
-    if (interpreter.validCommandLineCount % 2)
+    if (interpreter && interpreter.validCommandLineCount % 2)
     {
         int spacePos1 = [interpreter.currentInput rangeOfString:@" "].location;
         int spacePos2 = [interpreter.currentInput rangeOfString:@" " options:NSBackwardsSearch].location;
@@ -100,15 +120,20 @@
         
         NSString *heading = [interpreter.currentInput substringFromIndex:spacePos2 + 1];
         
-        if([interpreter.roversControllerDelegate DeployRoverWithPosition:CGPointMake(x, y) headingChar:heading])
+        if([interpreter.roversControllerDelegate deployRoverWithPosition:CGPointMake(x, y) headingChar:heading])
         {
             @autoreleasepool {
-                interpreter.currentState = [[[StateWaitingRoverDeployment alloc] init] autorelease];
+                interpreter.currentState = [[[StateWaitingRoverNavigation alloc] init] autorelease];
             }
             result = YES;   
         }
     }
     return result;
+}
+
+-(NSString*)getErrorMessage
+{
+    return @"Deploy rover failed.";
 }
 @end
 
@@ -116,16 +141,16 @@
 -(StateWaitingRoverNavigation*)init
 {
     if((self = [super init]))
-        _regExPattern =  @"[NESW]+";
+        _regExPattern =  @"^[LlRrMm]+$";
     
     return self;
 }
--(BOOL)operateRoversController:(RoversControllerInterpreter*)interpreter
+-(BOOL)operateRoversControllerByInterpreter:(RoversControllerInterpreter*)interpreter
 {
     
-    if (interpreter.validCommandLineCount > 0 && interpreter.validCommandLineCount % 2 == 0) 
+    if (interpreter && interpreter.validCommandLineCount > 0 && interpreter.validCommandLineCount % 2 == 0) 
     {
-        [interpreter.roversControllerDelegate ExecuteNavigationByInputString:interpreter.currentInput];
+        [interpreter.roversControllerDelegate executeNavigationByInputString:interpreter.currentInput];
         @autoreleasepool {
             interpreter.currentState = [[[StateWaitingRoverDeployment alloc] init] autorelease];
         }
@@ -135,5 +160,9 @@
     {
         return NO;
     }
+}
+-(NSString*)getErrorMessage
+{
+    return @"Navigate rover failed.";
 }
 @end

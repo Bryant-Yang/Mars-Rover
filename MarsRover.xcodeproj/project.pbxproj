@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C09DED89157000A10047EEBC /* roverwest.png in Resources */ = {isa = PBXBuildFile; fileRef = C09DED88157000A10047EEBC /* roverwest.png */; };
+		C0A0BC05156F4FD4006A17F8 /* RoverNavigationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */; };
+		C0AD9A9F1570FD0A0093D660 /* PlateauGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */; };
+		C0AD9AA8157156810093D660 /* RoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD9AA7157156810093D660 /* RoverView.m */; };
+		C0AD9AAC15717C5A0093D660 /* rovereast.png in Resources */ = {isa = PBXBuildFile; fileRef = C0AD9AA915717C5A0093D660 /* rovereast.png */; };
+		C0AD9AAD15717C5A0093D660 /* rovernorth.png in Resources */ = {isa = PBXBuildFile; fileRef = C0AD9AAA15717C5A0093D660 /* rovernorth.png */; };
+		C0AD9AAE15717C5A0093D660 /* roversouth.png in Resources */ = {isa = PBXBuildFile; fileRef = C0AD9AAB15717C5A0093D660 /* roversouth.png */; };
 		C0B98C5E156E6BBF00A3C5AD /* Rover.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C5D156E6BBF00A3C5AD /* Rover.m */; };
 		C0B98C62156E9A3F00A3C5AD /* RoverHeadingState.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */; };
 		C0B98C65156ECE7300A3C5AD /* RCInterpreterState.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */; };
@@ -25,11 +32,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C09DED88157000A10047EEBC /* roverwest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roverwest.png; sourceTree = "<group>"; };
+		C0A0BC03156F4FD4006A17F8 /* RoverNavigationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoverNavigationCommand.h; sourceTree = "<group>"; };
+		C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoverNavigationCommand.m; sourceTree = "<group>"; };
+		C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateauGridView.h; sourceTree = "<group>"; };
+		C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateauGridView.m; sourceTree = "<group>"; };
+		C0AD9AA6157156810093D660 /* RoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoverView.h; sourceTree = "<group>"; };
+		C0AD9AA7157156810093D660 /* RoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoverView.m; sourceTree = "<group>"; };
+		C0AD9AA915717C5A0093D660 /* rovereast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rovereast.png; sourceTree = "<group>"; };
+		C0AD9AAA15717C5A0093D660 /* rovernorth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rovernorth.png; sourceTree = "<group>"; };
+		C0AD9AAB15717C5A0093D660 /* roversouth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roversouth.png; sourceTree = "<group>"; };
 		C0B98C5C156E6BBF00A3C5AD /* Rover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rover.h; sourceTree = "<group>"; };
 		C0B98C5D156E6BBF00A3C5AD /* Rover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rover.m; sourceTree = "<group>"; };
 		C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoverHeadingState.h; sourceTree = "<group>"; };
 		C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoverHeadingState.m; sourceTree = "<group>"; };
-		C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RCInterpreterState.h; sourceTree = "<group>"; };
+		C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCInterpreterState.h; sourceTree = "<group>"; };
 		C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCInterpreterState.m; sourceTree = "<group>"; };
 		C0D5F9641563778E004FB0A9 /* RoversControllerInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoversControllerInterpreter.h; sourceTree = "<group>"; };
 		C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoversControllerInterpreter.m; sourceTree = "<group>"; };
@@ -70,6 +87,10 @@
 		C341331F15558CC500D5DDF8 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0AD9AA915717C5A0093D660 /* rovereast.png */,
+				C0AD9AAA15717C5A0093D660 /* rovernorth.png */,
+				C0AD9AAB15717C5A0093D660 /* roversouth.png */,
+				C09DED88157000A10047EEBC /* roverwest.png */,
 				C341332115558D0E00D5DDF8 /* marsface.jpg */,
 			);
 			name = resources;
@@ -110,6 +131,8 @@
 				C38ABCDA1555700D0047DB26 /* MainStoryboard.storyboard */,
 				C32DA2AE155573B600F8FBBE /* RoversController.h */,
 				C32DA2AF155573B600F8FBBE /* RoversController.m */,
+				C0A0BC03156F4FD4006A17F8 /* RoverNavigationCommand.h */,
+				C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */,
 				C0B98C5C156E6BBF00A3C5AD /* Rover.h */,
 				C0B98C5D156E6BBF00A3C5AD /* Rover.m */,
 				C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */,
@@ -122,6 +145,10 @@
 				C3EC97B11555639600640AFC /* ReportViewController.m */,
 				C3EC979E1555524600640AFC /* AppDelegate.h */,
 				C3EC979F1555524600640AFC /* AppDelegate.m */,
+				C0AD9AA6157156810093D660 /* RoverView.h */,
+				C0AD9AA7157156810093D660 /* RoverView.m */,
+				C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */,
+				C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */,
 				C3EC97A41555524600640AFC /* MarsExplorationViewController.h */,
 				C3EC97A51555524600640AFC /* MarsExplorationViewController.m */,
 				C3EC97961555524600640AFC /* Supporting Files */,
@@ -193,6 +220,10 @@
 				C3EC979A1555524600640AFC /* InfoPlist.strings in Resources */,
 				C38ABCDC1555700D0047DB26 /* MainStoryboard.storyboard in Resources */,
 				C341332215558D0E00D5DDF8 /* marsface.jpg in Resources */,
+				C09DED89157000A10047EEBC /* roverwest.png in Resources */,
+				C0AD9AAC15717C5A0093D660 /* rovereast.png in Resources */,
+				C0AD9AAD15717C5A0093D660 /* rovernorth.png in Resources */,
+				C0AD9AAE15717C5A0093D660 /* roversouth.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +243,9 @@
 				C0B98C5E156E6BBF00A3C5AD /* Rover.m in Sources */,
 				C0B98C62156E9A3F00A3C5AD /* RoverHeadingState.m in Sources */,
 				C0B98C65156ECE7300A3C5AD /* RCInterpreterState.m in Sources */,
+				C0A0BC05156F4FD4006A17F8 /* RoverNavigationCommand.m in Sources */,
+				C0AD9A9F1570FD0A0093D660 /* PlateauGridView.m in Sources */,
+				C0AD9AA8157156810093D660 /* RoverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

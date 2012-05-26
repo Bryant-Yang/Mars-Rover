@@ -21,22 +21,38 @@
 
 -(void)turnLeft
 {
-    [_headingState turnLeftRover:self];
+    if(_headingState)
+        [_headingState turnLeftRover:self];
 }
 
 -(void)turnRight
 {
-    [_headingState turnRightRover:self];
+    if(_headingState)
+        [_headingState turnRightRover:self];
 }
 
 -(void)move
 {
-    [_headingState moveRover:self];
+    if(_headingState)
+        [_headingState moveRover:self];
+}
+
+-(NSString*)getHeadingString
+{
+    return _headingState.headingString;
 }
 
 -(NSString*)reportState
 {
-    return [[[NSString alloc] initWithFormat:@"%d %d %@", _position.x, _position.y, _headingState.headingString] autorelease];
+    if(_headingState){
+        NSString* roverState = [[[NSString alloc] initWithFormat:@"%d %d %@", (int)_position.x, (int)_position.y, _headingState.headingString] autorelease];
+        
+        return roverState;
+    }
+    else 
+    {
+        return nil;
+    }
 }
 
 @end

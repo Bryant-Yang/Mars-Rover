@@ -41,18 +41,20 @@
 -(void)turnLeftRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateWest alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateWest alloc] init] autorelease];
     }
 }
 -(void)turnRightRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateEast alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateEast alloc] init] autorelease];
     }
 }
 -(void)moveRover:(Rover *)rover
 {
-    if(rover.position.y < rover.explorationRangeUpperRight.y )
+    if(rover && rover.position.y < rover.explorationRangeUpperRight.y )
     {
         rover.position = CGPointMake(rover.position.x, rover.position.y + 1);   
     }
@@ -72,18 +74,20 @@
 -(void)turnLeftRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateNorth alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateNorth alloc] init] autorelease];
     }
 }
 -(void)turnRightRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateSouth alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateSouth alloc] init] autorelease];
     }
 }
 -(void)moveRover:(Rover *)rover
 {
-    if(rover.position.x < rover.explorationRangeUpperRight.x )
+    if(rover && rover.position.x < rover.explorationRangeUpperRight.x )
     {
         rover.position = CGPointMake(rover.position.x + 1, rover.position.y);   
     }
@@ -103,18 +107,20 @@
 -(void)turnLeftRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateWest alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateWest alloc] init] autorelease];
     }
 }
 -(void)turnRightRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateEast alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateEast alloc] init] autorelease];
     }
 }
 -(void)moveRover:(Rover *)rover
 {
-    if(rover.position.y > 0)
+    if(rover && rover.position.y > 0)
     {
         rover.position = CGPointMake(rover.position.x, rover.position.y - 1);   
     }
@@ -134,18 +140,20 @@
 -(void)turnLeftRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateSouth alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateSouth alloc] init] autorelease];
     }
 }
 -(void)turnRightRover:(Rover *)rover
 {
     @autoreleasepool {
-        rover.headingState = [[[RoverStateNorth alloc] init] autorelease];
+        if(rover)
+            rover.headingState = [[[RoverStateNorth alloc] init] autorelease];
     }
 }
 -(void)moveRover:(Rover *)rover
 {
-    if(rover.position.x > 0 )
+    if(rover && rover.position.x > 0 )
     {
         rover.position = CGPointMake(rover.position.x - 1, rover.position.y);   
     }
@@ -155,19 +163,24 @@
 @implementation RoverHeadingStateFactory
 +(RoverHeadingState*)createStateByHeadingString:(NSString *)headingString
 {
-    RoverHeadingState* (^createState)();
-    NSDictionary *funcMap = [NSDictionary dictionaryWithObjectsAndKeys:
-                             ^(){return [[[RoverStateNorth alloc] init] autorelease];}, kNorth,
-                             ^(){return [[[RoverStateEast alloc] init] autorelease];}, kEast,
-                             ^(){return [[[RoverStateSouth alloc] init] autorelease];}, kSouth,
-                             ^(){return [[[RoverStateWest alloc] init] autorelease];}, kWest,
-                             nil];
+    RoverHeadingState* roverHeadingState = nil;
     
-    createState = [funcMap objectForKey:headingString];
+    if(headingString)
+    {
+        RoverHeadingState* (^createState)();
+        NSDictionary *funcMap = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 ^(){return [[[RoverStateNorth alloc] init] autorelease];}, kNorth,
+                                 ^(){return [[[RoverStateEast alloc] init] autorelease];}, kEast,
+                                 ^(){return [[[RoverStateSouth alloc] init] autorelease];}, kSouth,
+                                 ^(){return [[[RoverStateWest alloc] init] autorelease];}, kWest,
+                                 nil];
+        
+        createState = [funcMap objectForKey:[headingString uppercaseString]];
+        
+        if(createState)
+            roverHeadingState = createState();
+    }
     
-    if(createState)
-       return createState();
-    else 
-       return nil;
+    return roverHeadingState;
 }
 @end
