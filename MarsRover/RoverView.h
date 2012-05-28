@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface RoverView : UIImageView
+{
+    CGFloat _transformAngleDegree;
+    CGFloat _headingAngleDegree;
+}
 -(void)changeHeadingByHeadingString:(NSString*)headingString;
+-(id)initWithHeadingString:(NSString*)headingString;
 @end

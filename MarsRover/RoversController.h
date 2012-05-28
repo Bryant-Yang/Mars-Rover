@@ -10,6 +10,7 @@
 #import "Rover.h"
 
 @class RoversControllerInterpreter;
+@class RoverNavigationCommand;
 
 @protocol RoversControllDelegate <NSObject>
 -(BOOL) setRangeUpperRight:(CGPoint)upperRight;
@@ -24,11 +25,15 @@
     NSUInteger      _currentRoverIndex;
     NSMutableArray  *_roversList;
     Rover           *_currentRover;
+    
+    NSMutableArray  *_currentRoverCommandQueue;
+    BOOL            _currentNavigationFinished;
 }
-@property (readonly, nonatomic) CGPoint explorationRangeUpperRight;
-@property (readonly, nonatomic) Rover* currentRover;
+@property (assign, nonatomic) CGPoint explorationRangeUpperRight;
+@property (assign, nonatomic) Rover* currentRover;
+@property (assign, nonatomic) BOOL currentNavigationFinished;
+
 -(NSUInteger)getCurrentRoverIndex;
 -(NSUInteger)getRoversCount;
 -(NSString*)reportRoversState;
-
 @end

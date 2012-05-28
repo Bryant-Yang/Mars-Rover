@@ -16,7 +16,7 @@ static NSString* const kEast  = @"E";
 static NSString* const kSouth = @"S";
 static NSString* const kWest  = @"W";
 
-#pragma mark Turnning protocol
+#pragma mark Turnning and moving protocol
 @protocol RoverOperations <NSObject>
 @optional
 -(void)turnLeftRover:(Rover*)rover;

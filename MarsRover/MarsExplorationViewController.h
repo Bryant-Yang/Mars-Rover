@@ -28,6 +28,9 @@
     
     RoversController            *_roversController;
     RoversControllerInterpreter *_rcInterpreter; 
+    
+    NSMutableArray      *_roverStateTrackList;
+    NSUInteger          _roverViewAnimationIndex;
 }
 @property (retain, nonatomic) RoversController* roversController;
 

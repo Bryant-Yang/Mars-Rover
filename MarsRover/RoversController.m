@@ -12,12 +12,14 @@
 @implementation RoversController
 @synthesize explorationRangeUpperRight = _explorationRangeUpperRight;
 @synthesize currentRover = _currentRover;
+@synthesize currentNavigationFinished = _currentNavigationFinished;
 
 -(id)init
 {
     if((self = [super init]))
     {
         _roversList = [[NSMutableArray alloc] init];
+        _currentRoverCommandQueue = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -64,6 +66,7 @@
             [_roversList addObject:rover];
             _currentRoverIndex = [_roversList count] - 1;
             self.currentRover = [_roversList objectAtIndex:_currentRoverIndex];
+            self.currentNavigationFinished = NO;
         }
         return YES;
     }
@@ -80,9 +83,16 @@
             NSString *commandString = [inputString substringWithRange:NSMakeRange(stringIndex, 1)];
 
             RoverNavigationCommand *roverNavCmd = [RoverNavigationCommandFactory createRoverNavCommandByString:commandString andRover:self.currentRover];
-            [roverNavCmd executeCommand];
+
+            [_currentRoverCommandQueue addObject:roverNavCmd];
             stringIndex++;
         }
+        
+        for (RoverNavigationCommand *roverNavCmd in _currentRoverCommandQueue) {
+            [roverNavCmd executeCommand];
+        }
+        
+        self.currentNavigationFinished = YES;
     }
 }
 
@@ -109,6 +119,8 @@
 {
     [_roversList release];
     _roversList = nil;
+    [_currentRoverCommandQueue release];
+    _currentRoverCommandQueue = nil;
     [super dealloc];
 }
 

@@ -108,14 +108,14 @@
 {
     @autoreleasepool {
         if(rover)
-            rover.headingState = [[[RoverStateWest alloc] init] autorelease];
+            rover.headingState = [[[RoverStateEast alloc] init] autorelease];
     }
 }
 -(void)turnRightRover:(Rover *)rover
 {
     @autoreleasepool {
         if(rover)
-            rover.headingState = [[[RoverStateEast alloc] init] autorelease];
+            rover.headingState = [[[RoverStateWest alloc] init] autorelease];
     }
 }
 -(void)moveRover:(Rover *)rover

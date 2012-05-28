@@ -11,6 +11,30 @@
 #import "PlateauGridView.h"
 #import "RoverView.h"
 
+@interface RoverState : NSObject
+{
+    CGPoint     _position;
+    NSString    *_headingString;
+}
+@property (assign, nonatomic) CGPoint position;
+@property (assign, nonatomic) NSString* headingString; 
+-(id)initWithPosition:(CGPoint)position andHeadingString:(NSString*)headingString;
+@end
+
+@implementation RoverState
+@synthesize position = _position;
+@synthesize headingString = _headingString;
+-(id)initWithPosition:(CGPoint)position andHeadingString:(NSString *)headingString
+{
+    if((self = [super init]))
+    {
+        self.position = position;
+        self.headingString = headingString;
+    }
+    return self;
+}
+@end
+
 @implementation MarsExplorationViewController
 
 @synthesize roversController = _roversController;
@@ -32,6 +56,8 @@
     _roversController = [[RoversController alloc] init];
     _rcInterpreter = [[RoversControllerInterpreter alloc] initWithRoversController:_roversController];
     _roverViewList = [[NSMutableArray alloc] init];
+    
+    _roverStateTrackList =[[NSMutableArray alloc] init];
         
     [self addObserver:self
            forKeyPath:@"roversController.explorationRangeUpperRight"
@@ -52,6 +78,11 @@
            forKeyPath:@"roversController.currentRover.headingState"
               options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
               context:NULL];
+    
+    [self addObserver:self
+           forKeyPath: @"roversController.currentNavigationFinished"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:NULL];
 }
 
 - (void)viewDidUnload
@@ -60,6 +91,7 @@
     [self removeObserver:self forKeyPath:@"roversController.currentRover"];
     [self removeObserver:self forKeyPath:@"roversController.currentRover.position"];
     [self removeObserver:self forKeyPath:@"roversController.currentRover.headingState"];
+    [self removeObserver:self forKeyPath:@"roversController.currentNavigationFinished"];
     [_plateauGridView release];
     _plateauGridView = nil;
     [_plateauView release];
@@ -202,15 +234,11 @@
 {
     @autoreleasepool 
     {
-        RoverView *roverView = [[[RoverView alloc] initWithImage:[UIImage imageNamed:@"roverwest.png"]] autorelease];
+        RoverView *roverView = [[[RoverView alloc] initWithHeadingString:[rover getHeadingString]] autorelease];
         [roverView sizeToFit];
         [roverView changeHeadingByHeadingString:[rover getHeadingString]];
-          
-        CGPoint roverViewOrigin = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
-        CGFloat roverViewWidth = roverView.frame.size.width;
-        CGFloat roverViewHeight = roverView.frame.size.height;
-        
-        roverView.frame = CGRectMake(roverViewOrigin.x - roverViewWidth / 2, roverViewOrigin.y - roverViewHeight / 2, roverViewWidth, roverViewHeight);
+
+        roverView.center = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
         
         [_plateauGridView addSubview:roverView];
         [_roverViewList addObject:roverView];
@@ -218,23 +246,27 @@
     }
 }
 
--(void)updateRoverViewByCurrentRover:(Rover*)rover
-{
-    RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
-    
-    const float movementDuration = 2.0f;
-    [UIView beginAnimations: nil context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    
-    [currentRoverView changeHeadingByHeadingString:[rover getHeadingString]];
-    
-    CGFloat roverViewWidth = currentRoverView.frame.size.width;
-    CGFloat roverViewHeight = currentRoverView.frame.size.height;
-    CGPoint newPos = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
-    [currentRoverView setFrame:CGRectMake(newPos.x - roverViewWidth / 2, newPos.y - roverViewHeight / 2, roverViewWidth, roverViewHeight)];
+-(void)animateRoverMovement:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 
-    [UIView commitAnimations];
+    if(_roverViewAnimationIndex < [_roverStateTrackList count])
+    {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDelay:0];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animateRoverMovement:finished:context:)];
+        RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
+        RoverState *roverState = [_roverStateTrackList objectAtIndex:_roverViewAnimationIndex];
+        [currentRoverView changeHeadingByHeadingString:roverState.headingString];
+        currentRoverView.center = [_plateauGridView getPositionInGridByRoverPosition:roverState.position];
+        _roverViewAnimationIndex++;
+        [UIView commitAnimations];
+    }
+    else
+    {
+        [_roverStateTrackList removeAllObjects];
+        _roverViewAnimationIndex = 0;
+    }
 }
 
 #pragma mark Handle input texts
@@ -253,8 +285,6 @@
         [alert release];
     }
     
-    NSLog(@"%@", [_roversController reportRoversState]);
-        
     return YES;    
 }   
 
@@ -276,7 +306,19 @@
     if([keyPath isEqualToString:@"roversController.currentRover.position"] || [keyPath isEqualToString:@"roversController.currentRover.headingState"])
     {
         if([_roversController getRoversCount] == [_roverViewList count])
-            [self updateRoverViewByCurrentRover:self.roversController.currentRover];
+        {
+            RoverState *roverState = [[[RoverState alloc] initWithPosition:self.roversController.currentRover.position andHeadingString:[self.roversController.currentRover getHeadingString]] autorelease];
+            [_roverStateTrackList addObject:roverState];
+        }
+    }
+    
+    if([keyPath isEqualToString:@"roversController.currentNavigationFinished"])
+    {
+        if(self.roversController.currentNavigationFinished)
+        {
+            _roverViewAnimationIndex = 0;
+            [self animateRoverMovement:nil finished:nil context:nil];
+        }
     }
 }
 
