@@ -16,7 +16,7 @@
 {
     IBOutlet UIImageView *_plateauView;
     IBOutlet UITextField *_instructionField;
-    IBOutlet UIButton    *_overviewButton;
+    //IBOutlet UIButton    *_overviewButton;
     
     PlateauGridView      *_plateauGridView;
     
@@ -30,11 +30,11 @@
     RoversControllerInterpreter *_rcInterpreter; 
     
     NSMutableArray      *_roverStateTrackList;
-    NSUInteger          _roverViewAnimationIndex;
 }
 @property (retain, nonatomic) RoversController* roversController;
 
 //Implement the protocol UITextFieldDelegate
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
 -(void)textFieldDidBeginEditing:(UITextField *)textField;
 -(void)textFieldDidEndEditing:(UITextField *)textField;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField;

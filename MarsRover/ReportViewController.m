@@ -1,18 +1,15 @@
 //
-//  RoverReportViewController.m
+//  ReportViewController.m
 //  MarsRover
 //
-//  Created by bobo on 12-5-5.
+//  Created by Bo on 12-5-29.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
 #import "ReportViewController.h"
 
-@interface ReportViewController ()
-
-@end
-
 @implementation ReportViewController
+@synthesize roversStates = _roversStates;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,10 +24,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [_roversStatesView setText:_roversStates];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidUnload
 {
+    [_roversStatesView release];
+    _roversStatesView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -40,4 +45,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [_roversStatesView release];
+    [super dealloc];
+}
 @end

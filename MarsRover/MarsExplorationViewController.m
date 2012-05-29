@@ -7,6 +7,7 @@
 //
 
 #import "MarsExplorationViewController.h"
+#import "ReportViewController.h"
 #import "RoversControllerInterpreter.h"
 #import "PlateauGridView.h"
 #import "RoverView.h"
@@ -43,7 +44,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+
     _plateauView.image = [UIImage imageNamed:@"marsface.jpg"];
     _plateauViewOriginalFrame = [_plateauView frame];
     [_plateauView sizeToFit];
@@ -85,6 +86,18 @@
               context:NULL];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ReportViewController *reportVC = [segue destinationViewController];
+    reportVC.roversStates = [NSString stringWithFormat:@"%@",[_roversController reportRoversState]];
+    [_instructionField resignFirstResponder];
+}
+
 - (void)viewDidUnload
 {
     [self removeObserver:self forKeyPath:@"roversController.explorationRangeUpperRight"];
@@ -98,8 +111,6 @@
     _plateauView = nil;
     [_instructionField release];
     _instructionField = nil;
-    [_overviewButton release];
-    _overviewButton = nil;
     [_roversController release];
     _roversController = nil;
     [_rcInterpreter release];
@@ -199,6 +210,8 @@
     [self animateTextField:_instructionField up:NO];
 }
 
+#pragma mark UI drawing methods
+
 - (void)movePlateauViewToLeftBottom
 {
     const float movementDuration = 0.3f;
@@ -230,6 +243,21 @@
     [self movePlateauViewToLeftBottom];
 }
 
+-(void)animateCurrentRoverBlinking:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
+    if(currentRoverView.blinking)
+    {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDelay:0];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animateCurrentRoverBlinking:finished:context:)];
+        currentRoverView.alpha = 0;
+        currentRoverView.alpha = 1;
+        [UIView commitAnimations];
+    }
+}   
+
 -(void)addRoverViewByCurrentRover:(Rover*)rover
 {
     @autoreleasepool 
@@ -239,33 +267,51 @@
         [roverView changeHeadingByHeadingString:[rover getHeadingString]];
 
         roverView.center = [_plateauGridView getPositionInGridByRoverPosition:rover.position];
+        roverView.blinking = YES;
+        roverView.running = NO;
         
         [_plateauGridView addSubview:roverView];
         [_roverViewList addObject:roverView];
         _currentRoverViewIndex++;
     }
+    
+    [self animateCurrentRoverBlinking:nil finished:nil context:nil];
 }
 
--(void)animateRoverMovement:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-
-    if(_roverViewAnimationIndex < [_roverStateTrackList count])
+-(void)animateCurrentRoverMovement:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
+    if(currentRoverView.navigationCount < [_roverStateTrackList count])
     {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
         [UIView setAnimationDelay:0];
         [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(animateRoverMovement:finished:context:)];
-        RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
-        RoverState *roverState = [_roverStateTrackList objectAtIndex:_roverViewAnimationIndex];
+        [UIView setAnimationDidStopSelector:@selector(animateCurrentRoverMovement:finished:context:)];
+        RoverState *roverState = [_roverStateTrackList objectAtIndex:currentRoverView.navigationCount];
         [currentRoverView changeHeadingByHeadingString:roverState.headingString];
         currentRoverView.center = [_plateauGridView getPositionInGridByRoverPosition:roverState.position];
-        _roverViewAnimationIndex++;
+        currentRoverView.navigationCount++;
         [UIView commitAnimations];
     }
     else
     {
         [_roverStateTrackList removeAllObjects];
-        _roverViewAnimationIndex = 0;
+        currentRoverView.navigationCount = 0;
+        currentRoverView.running = NO;
+    }
+}
+
+#pragma mark Can't input when a rover is still in running
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if([_roverViewList count] > 0)
+    {
+        RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
+        return (currentRoverView.running == NO);   
+    }
+    else 
+    {
+        return YES;
     }
 }
 
@@ -273,14 +319,14 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-   
+    
     if(![_rcInterpreter receiveInputText:[textField text]])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't execute input command" 
-                                                        message:[_rcInterpreter getErrorMessage] 
-                                                       delegate:nil 
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
+                                                  message:[_rcInterpreter getErrorMessage] 
+                                                  delegate:nil 
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
         [alert show];
         [alert release];
     }
@@ -288,6 +334,7 @@
     return YES;    
 }   
 
+#pragma mark Use KVO, observe the data changing and do corresponding UI changing. 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -301,6 +348,7 @@
     if([keyPath isEqualToString:@"roversController.currentRover"])
     {
         [self addRoverViewByCurrentRover:self.roversController.currentRover];
+        
     }
     
     if([keyPath isEqualToString:@"roversController.currentRover.position"] || [keyPath isEqualToString:@"roversController.currentRover.headingState"])
@@ -316,8 +364,11 @@
     {
         if(self.roversController.currentNavigationFinished)
         {
-            _roverViewAnimationIndex = 0;
-            [self animateRoverMovement:nil finished:nil context:nil];
+            RoverView *currentRoverView = [_roverViewList objectAtIndex:[_roversController getCurrentRoverIndex]];
+            currentRoverView.blinking = NO;
+            currentRoverView.navigationCount = 0;
+            currentRoverView.running = YES;
+            [self animateCurrentRoverMovement:nil finished:nil context:nil];
         }
     }
 }

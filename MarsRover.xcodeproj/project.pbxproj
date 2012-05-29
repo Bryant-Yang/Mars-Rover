@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C09DED89157000A10047EEBC /* roverwest.png in Resources */ = {isa = PBXBuildFile; fileRef = C09DED88157000A10047EEBC /* roverwest.png */; };
+		C09EA7A41574AA5A004047BB /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09EA7A31574AA5A004047BB /* ReportViewController.m */; };
 		C0A0BC05156F4FD4006A17F8 /* RoverNavigationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */; };
 		C0AD9A9F1570FD0A0093D660 /* PlateauGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */; };
 		C0AD9AA8157156810093D660 /* RoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD9AA7157156810093D660 /* RoverView.m */; };
@@ -28,11 +29,12 @@
 		C3EC979C1555524600640AFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EC979B1555524600640AFC /* main.m */; };
 		C3EC97A01555524600640AFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EC979F1555524600640AFC /* AppDelegate.m */; };
 		C3EC97A61555524600640AFC /* MarsExplorationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97A51555524600640AFC /* MarsExplorationViewController.m */; };
-		C3EC97B21555639600640AFC /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97B11555639600640AFC /* ReportViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C09DED88157000A10047EEBC /* roverwest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roverwest.png; sourceTree = "<group>"; };
+		C09EA7A21574AA5A004047BB /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		C09EA7A31574AA5A004047BB /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		C0A0BC03156F4FD4006A17F8 /* RoverNavigationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoverNavigationCommand.h; sourceTree = "<group>"; };
 		C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoverNavigationCommand.m; sourceTree = "<group>"; };
 		C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateauGridView.h; sourceTree = "<group>"; };
@@ -66,8 +68,6 @@
 		C3EC979F1555524600640AFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C3EC97A41555524600640AFC /* MarsExplorationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarsExplorationViewController.h; sourceTree = "<group>"; };
 		C3EC97A51555524600640AFC /* MarsExplorationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarsExplorationViewController.m; sourceTree = "<group>"; };
-		C3EC97B01555639600640AFC /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
-		C3EC97B11555639600640AFC /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,14 +141,14 @@
 				C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */,
 				C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */,
 				C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */,
-				C3EC97B01555639600640AFC /* ReportViewController.h */,
-				C3EC97B11555639600640AFC /* ReportViewController.m */,
 				C3EC979E1555524600640AFC /* AppDelegate.h */,
 				C3EC979F1555524600640AFC /* AppDelegate.m */,
 				C0AD9AA6157156810093D660 /* RoverView.h */,
 				C0AD9AA7157156810093D660 /* RoverView.m */,
 				C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */,
 				C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */,
+				C09EA7A21574AA5A004047BB /* ReportViewController.h */,
+				C09EA7A31574AA5A004047BB /* ReportViewController.m */,
 				C3EC97A41555524600640AFC /* MarsExplorationViewController.h */,
 				C3EC97A51555524600640AFC /* MarsExplorationViewController.m */,
 				C3EC97961555524600640AFC /* Supporting Files */,
@@ -237,7 +237,6 @@
 				C3EC979C1555524600640AFC /* main.m in Sources */,
 				C3EC97A01555524600640AFC /* AppDelegate.m in Sources */,
 				C3EC97A61555524600640AFC /* MarsExplorationViewController.m in Sources */,
-				C3EC97B21555639600640AFC /* ReportViewController.m in Sources */,
 				C32DA2B0155573B600F8FBBE /* RoversController.m in Sources */,
 				C0D5F9661563778E004FB0A9 /* RoversControllerInterpreter.m in Sources */,
 				C0B98C5E156E6BBF00A3C5AD /* Rover.m in Sources */,
@@ -246,6 +245,7 @@
 				C0A0BC05156F4FD4006A17F8 /* RoverNavigationCommand.m in Sources */,
 				C0AD9A9F1570FD0A0093D660 /* PlateauGridView.m in Sources */,
 				C0AD9AA8157156810093D660 /* RoverView.m in Sources */,
+				C09EA7A41574AA5A004047BB /* ReportViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

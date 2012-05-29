@@ -12,6 +12,9 @@ NSDictionary *imageMap;
 NSDictionary *angleMap;
 
 @implementation RoverView
+@synthesize blinking = _blinking;
+@synthesize navigationCount = _navigationCount;
+@synthesize running = _running;
 
 -(void)changeHeadingByHeadingString:(NSString*)headingString
 {
@@ -41,6 +44,7 @@ NSDictionary *angleMap;
         [self initWithImage:image];
         [self sizeToFit];
         
+        _blinking = NO;
         _headingAngleDegree = [angle floatValue];
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="X9L-PK-bBG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="wVH-dE-31q">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
@@ -12,50 +12,85 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFK-1U-bi3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="X9L-PK-bBG" customClass="MarsExplorationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TOF-EU-hyI">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="F3X-OT-6vj" userLabel="Mars plateau map">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="88H-XX-dsL" userLabel="Control panel">
-                                <rect key="frame" x="0.0" y="400" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
-                                </accessibility>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input instructions here" clearsOnBeginEditing="YES" minimumFontSize="17" id="NL4-bt-bHI" userLabel="Instruction field">
-                                <rect key="frame" x="15" y="414" width="166" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J5R-kO-6hJ" userLabel="Overview">
-                                <rect key="frame" x="234" y="414" width="71" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Overview">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="LT2-u9-gO5">
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" id="rXK-wB-QSX">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input instructions here" clearsOnBeginEditing="YES" minimumFontSize="17" id="NL4-bt-bHI" userLabel="Instruction field">
+                                            <rect key="frame" x="12" y="7" width="214" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        </textField>
+                                    </barButtonItem>
+                                    <barButtonItem title="Overview" id="d8o-D4-0oJ">
+                                        <connections>
+                                            <segue destination="Uey-aA-v8t" kind="push" id="sEh-f4-1E6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="SLo-7I-3u7"/>
                     <connections>
                         <outlet property="_instructionField" destination="NL4-bt-bHI" id="xsB-ub-g8V"/>
-                        <outlet property="_overviewButton" destination="J5R-kO-6hJ" id="t7o-KE-pZD"/>
                         <outlet property="_plateauView" destination="F3X-OT-6vj" id="Cbi-H7-gb4"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="127" y="151"/>
+            <point key="canvasLocation" x="-667" y="6"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Y02-xw-10U">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w3f-xD-kjL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="wVH-dE-31q" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="nUy-gh-wQE">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="X9L-PK-bBG" kind="relationship" relationship="rootViewController" id="4MR-HK-EXh"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-1177" y="6"/>
+        </scene>
+        <!--Report View Controller - Rovers States-->
+        <scene sceneID="gzj-No-6AG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sdk-Pk-dC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Uey-aA-v8t" customClass="ReportViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oeT-Jm-cpF">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="state 1" id="ul7-0H-emX" userLabel="Rovers States View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rovers States" id="JX1-DS-ZS6"/>
+                    <connections>
+                        <outlet property="_roversStatesView" destination="ul7-0H-emX" id="Nva-xy-lwg"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-249" y="6"/>
         </scene>
     </scenes>
     <classes>
@@ -65,6 +100,12 @@
                 <relationship kind="outlet" name="_instructionField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="_overviewButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="_plateauView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ReportViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReportViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_roversStatesView" candidateClass="UITextView"/>
             </relationships>
         </class>
     </classes>
