@@ -84,6 +84,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C09EA7B11574D95D004047BB /* UI Controll */ = {
+			isa = PBXGroup;
+			children = (
+				C0AD9AA6157156810093D660 /* RoverView.h */,
+				C0AD9AA7157156810093D660 /* RoverView.m */,
+				C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */,
+				C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */,
+				C09EA7A21574AA5A004047BB /* ReportViewController.h */,
+				C09EA7A31574AA5A004047BB /* ReportViewController.m */,
+				C3EC97A41555524600640AFC /* MarsExplorationViewController.h */,
+				C3EC97A51555524600640AFC /* MarsExplorationViewController.m */,
+			);
+			name = "UI Controll";
+			sourceTree = "<group>";
+		};
+		C09EA7B21574D995004047BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C32DA2AE155573B600F8FBBE /* RoversController.h */,
+				C32DA2AF155573B600F8FBBE /* RoversController.m */,
+				C0A0BC03156F4FD4006A17F8 /* RoverNavigationCommand.h */,
+				C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */,
+				C0B98C5C156E6BBF00A3C5AD /* Rover.h */,
+				C0B98C5D156E6BBF00A3C5AD /* Rover.m */,
+				C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */,
+				C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */,
+				C0D5F9641563778E004FB0A9 /* RoversControllerInterpreter.h */,
+				C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */,
+				C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */,
+				C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		C341331F15558CC500D5DDF8 /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,29 +162,11 @@
 		C3EC97951555524600640AFC /* MarsRover */ = {
 			isa = PBXGroup;
 			children = (
-				C38ABCDA1555700D0047DB26 /* MainStoryboard.storyboard */,
-				C32DA2AE155573B600F8FBBE /* RoversController.h */,
-				C32DA2AF155573B600F8FBBE /* RoversController.m */,
-				C0A0BC03156F4FD4006A17F8 /* RoverNavigationCommand.h */,
-				C0A0BC04156F4FD4006A17F8 /* RoverNavigationCommand.m */,
-				C0B98C5C156E6BBF00A3C5AD /* Rover.h */,
-				C0B98C5D156E6BBF00A3C5AD /* Rover.m */,
-				C0B98C60156E9A3F00A3C5AD /* RoverHeadingState.h */,
-				C0B98C61156E9A3F00A3C5AD /* RoverHeadingState.m */,
-				C0D5F9641563778E004FB0A9 /* RoversControllerInterpreter.h */,
-				C0D5F9651563778E004FB0A9 /* RoversControllerInterpreter.m */,
-				C0B98C63156ECE7300A3C5AD /* RCInterpreterState.h */,
-				C0B98C64156ECE7300A3C5AD /* RCInterpreterState.m */,
 				C3EC979E1555524600640AFC /* AppDelegate.h */,
 				C3EC979F1555524600640AFC /* AppDelegate.m */,
-				C0AD9AA6157156810093D660 /* RoverView.h */,
-				C0AD9AA7157156810093D660 /* RoverView.m */,
-				C0AD9A9D1570FD0A0093D660 /* PlateauGridView.h */,
-				C0AD9A9E1570FD0A0093D660 /* PlateauGridView.m */,
-				C09EA7A21574AA5A004047BB /* ReportViewController.h */,
-				C09EA7A31574AA5A004047BB /* ReportViewController.m */,
-				C3EC97A41555524600640AFC /* MarsExplorationViewController.h */,
-				C3EC97A51555524600640AFC /* MarsExplorationViewController.m */,
+				C38ABCDA1555700D0047DB26 /* MainStoryboard.storyboard */,
+				C09EA7B21574D995004047BB /* Model */,
+				C09EA7B11574D95D004047BB /* UI Controll */,
 				C3EC97961555524600640AFC /* Supporting Files */,
 			);
 			path = MarsRover;
