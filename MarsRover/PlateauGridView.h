@@ -10,7 +10,7 @@
 
 @interface PlateauGridView : UIView
 
-+(CGSize)getProperSizeByUpperLeftPoint:(CGPoint)upperLeft;
++(CGSize)getProperSizeByUpperRightPoint:(CGPoint)upperRight;
 -(CGPoint)getPositionInGridByRoverPosition:(CGPoint)roverPos;
 
 @end

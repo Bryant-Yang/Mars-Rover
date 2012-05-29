@@ -74,6 +74,7 @@
 
 -(void)executeNavigationByInputString:(NSString *)inputString
 {
+    [_currentRoverCommandQueue removeAllObjects];
     if(inputString)
     {
         NSUInteger stringIndex = 0;

@@ -13,10 +13,15 @@
 
 static const NSUInteger kGridUnitDistance = 50;
 static const NSUInteger kMarginOfGridOnBackground = 20;
+static const NSUInteger kMaxRowNum = 50;
+static const NSUInteger kMaxColumnNum = 50;
 
-+(CGSize)getProperSizeByUpperLeftPoint:(CGPoint)upperLeft
++(CGSize)getProperSizeByUpperRightPoint:(CGPoint)upperRight
 {
-    return CGSizeMake(upperLeft.x * kGridUnitDistance + 2 * kMarginOfGridOnBackground, upperLeft.y * kGridUnitDistance + 2 * kMarginOfGridOnBackground);
+    upperRight.x = MIN(upperRight.x, kMaxColumnNum);
+    upperRight.y = MIN(upperRight.y, kMaxRowNum);
+    
+    return CGSizeMake(upperRight.x * kGridUnitDistance + 2 * kMarginOfGridOnBackground, upperRight.y * kGridUnitDistance + 2 * kMarginOfGridOnBackground);
 }
 
 -(CGPoint)getPositionInGridByRoverPosition:(CGPoint)roverPos

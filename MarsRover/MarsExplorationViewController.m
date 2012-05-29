@@ -123,7 +123,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)dealloc {
@@ -232,7 +232,7 @@
     GLfloat bgHeight = _plateauView.frame.size.height; 
 
 
-    CGSize  gridSize = [PlateauGridView getProperSizeByUpperLeftPoint:roverUpperRight];
+    CGSize  gridSize = [PlateauGridView getProperSizeByUpperRightPoint:roverUpperRight];
     CGFloat gridFrameLeft   = 0;
     CGFloat gridFrameTop    = bgHeight - gridSize.height;
     CGRect  gridFrame = CGRectMake(gridFrameLeft, gridFrameTop, gridSize.width, gridSize.height);
@@ -330,6 +330,13 @@
         [alert show];
         [alert release];
     }
+    
+    //auto test:
+    //[_rcInterpreter receiveInputText:@"1 1 e"];
+    //[_rcInterpreter receiveInputText:@"lmmlmm"];
+    //[_rcInterpreter receiveInputText:@"1 1 n"];
+    //[_rcInterpreter receiveInputText:@"lmmlmm"];
+    //NSLog(@"%@", [_roversController reportRoversState]);
     
     return YES;    
 }   
