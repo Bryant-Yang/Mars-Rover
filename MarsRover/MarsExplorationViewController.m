@@ -123,7 +123,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown 
+            || interfaceOrientation == UIDeviceOrientationPortrait);
 }
 
 - (void)dealloc {
