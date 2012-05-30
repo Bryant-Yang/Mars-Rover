@@ -1,0 +1,3 @@
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#e9bf5202ec53615f7e757fb6f0de0e4e" title="&#45;[MarsExplorationViewController addRoverViewByCurrentRover:]" alt="" coords="456,5,872,32">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#e63d13308118851817cc3c7e05685851" title="&#45;[MarsExplorationViewController animateCurrentRoverMovement:finished:context:]" alt="" coords="403,56,926,83">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#60dc568ead736a247268e82c793f4361" title="&#45;[MarsExplorationViewController observeValueForKeyPath:ofObject:change:context:]" alt="" coords="975,31,1508,57">

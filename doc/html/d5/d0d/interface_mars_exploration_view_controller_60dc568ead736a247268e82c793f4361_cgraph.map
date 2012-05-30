@@ -1,0 +1,11 @@
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#e9bf5202ec53615f7e757fb6f0de0e4e" title="&#45;[MarsExplorationViewController addRoverViewByCurrentRover:]" alt="" coords="643,157,1059,184">
+<area shape="rect" href="$d3/d0d/interface_rovers_controller.html#b8f7f41d016f44c848ba85703742d30a" title="&#45;[RoversController getCurrentRoverIndex]" alt="" coords="1717,56,1992,83">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#e63d13308118851817cc3c7e05685851" title="&#45;[MarsExplorationViewController animateCurrentRoverMovement:finished:context:]" alt="" coords="589,107,1112,133">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#0f489823f87fdf3b5fee6831610d4393" title="&#45;[MarsExplorationViewController showGridWithRoverExplorationRange:]" alt="" coords="621,309,1080,336">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#10dbc9c4f23a46595382dd7e65b25cb4" title="&#45;[MarsExplorationViewController animateCurrentRoverBlinking:finished:context:]" alt="" coords="1161,208,1668,235">
+<area shape="rect" href="$df/de1/interface_rover_view.html#a82176fd9a0ec0c72574a39db2d2eab4" title="&#45;[RoverView changeHeadingByHeadingString:]" alt="" coords="1263,107,1567,133">
+<area shape="rect" href="$d5/d6d/interface_rover.html#c8230418538a998bcddd18034db12935" title="&#45;[Rover getHeadingString]" alt="" coords="1325,259,1504,285">
+<area shape="rect" href="$db/d63/interface_plateau_grid_view.html#d82eee6cfa4a892d87754ac7f3614241" title="&#45;[PlateauGridView getPositionInGridByRoverPosition:]" alt="" coords="1240,157,1589,184">
+<area shape="rect" href="$df/de1/interface_rover_view.html#8a181d2397be0da51cac1b7be2584e93" title="+[RoverView getAngleMap]" alt="" coords="1761,107,1948,133">
+<area shape="rect" href="$db/d63/interface_plateau_grid_view.html#9a982dfc7f80d58910573f95cdcf0931" title="+[PlateauGridView getProperSizeByUpperRightPoint:]" alt="" coords="1241,309,1588,336">
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#50d4034c9044aa27207fe1daf3248f47" title="&#45;[MarsExplorationViewController movePlateauViewToLeftBottom]" alt="" coords="1207,360,1623,387">

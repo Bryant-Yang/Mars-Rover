@@ -1,0 +1,6 @@
+<area shape="rect" href="$d5/d0d/interface_mars_exploration_view_controller.html#10dbc9c4f23a46595382dd7e65b25cb4" title="&#45;[MarsExplorationViewController animateCurrentRoverBlinking:finished:context:]" alt="" coords="471,5,978,32">
+<area shape="rect" href="$df/de1/interface_rover_view.html#a82176fd9a0ec0c72574a39db2d2eab4" title="&#45;[RoverView changeHeadingByHeadingString:]" alt="" coords="572,56,876,83">
+<area shape="rect" href="$d5/d6d/interface_rover.html#c8230418538a998bcddd18034db12935" title="&#45;[Rover getHeadingString]" alt="" coords="635,107,814,133">
+<area shape="rect" href="$db/d63/interface_plateau_grid_view.html#d82eee6cfa4a892d87754ac7f3614241" title="&#45;[PlateauGridView getPositionInGridByRoverPosition:]" alt="" coords="550,157,899,184">
+<area shape="rect" href="$d3/d0d/interface_rovers_controller.html#b8f7f41d016f44c848ba85703742d30a" title="&#45;[RoversController getCurrentRoverIndex]" alt="" coords="1027,5,1302,32">
+<area shape="rect" href="$df/de1/interface_rover_view.html#8a181d2397be0da51cac1b7be2584e93" title="+[RoverView getAngleMap]" alt="" coords="1071,56,1258,83">

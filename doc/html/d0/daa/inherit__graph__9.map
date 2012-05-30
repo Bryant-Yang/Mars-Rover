@@ -1,0 +1,4 @@
+<area shape="rect" href="$db/d49/interface_rover_navigation_command.html" title="RoverNavigationCommand" alt="" coords="7,56,191,83">
+<area shape="rect" href="$de/da6/interface_rover_move_command.html" title="RoverMoveCommand" alt="" coords="254,6,408,32">
+<area shape="rect" href="$da/dfd/interface_rover_turn_left_command.html" title="RoverTurnLeftCommand" alt="" coords="246,56,416,83">
+<area shape="rect" href="$d5/d2c/interface_rover_turn_right_command.html" title="RoverTurnRightCommand" alt="" coords="240,107,422,134">

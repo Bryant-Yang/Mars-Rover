@@ -1,0 +1,3 @@
+<area shape="rect" href="$de/da6/interface_rover_move_command.html" title="{RoverMoveCommand\n||+ executeCommand\l}" alt="" coords="5,182,160,262">
+<area shape="rect" href="$da/dfd/interface_rover_turn_left_command.html" title="{RoverTurnLeftCommand\n||+ executeCommand\l}" alt="" coords="184,182,355,262">
+<area shape="rect" href="$d5/d2c/interface_rover_turn_right_command.html" title="{RoverTurnRightCommand\n||+ executeCommand\l}" alt="" coords="379,182,560,262">

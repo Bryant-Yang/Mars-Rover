@@ -1,0 +1,3 @@
+<area shape="rect" href="$d4/d02/interface_state_need_exploration_range.html" title="{StateNeedExplorationRange\n||+ init\l+ operateRoversControllerByInterpreter:\l+ getErrorMessage\l}" alt="" coords="6,182,270,294">
+<area shape="rect" href="$d8/d01/interface_state_waiting_rover_deployment.html" title="{StateWaitingRoverDeployment\n||+ init\l+ operateRoversControllerByInterpreter:\l+ getErrorMessage\l}" alt="" coords="294,182,558,294">
+<area shape="rect" href="$d1/db5/interface_state_waiting_rover_navigation.html" title="{StateWaitingRoverNavigation\n||+ init\l+ operateRoversControllerByInterpreter:\l+ getErrorMessage\l}" alt="" coords="582,182,846,294">

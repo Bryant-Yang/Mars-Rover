@@ -1,0 +1,4 @@
+<area shape="rect" href="$df/de1/interface_rover_view.html#a82176fd9a0ec0c72574a39db2d2eab4" title="&#45;[RoverView changeHeadingByHeadingString:]" alt="" coords="599,6,903,32">
+<area shape="rect" href="$d3/d0d/interface_rovers_controller.html#b8f7f41d016f44c848ba85703742d30a" title="&#45;[RoversController getCurrentRoverIndex]" alt="" coords="613,56,888,83">
+<area shape="rect" href="$db/d63/interface_plateau_grid_view.html#d82eee6cfa4a892d87754ac7f3614241" title="&#45;[PlateauGridView getPositionInGridByRoverPosition:]" alt="" coords="576,107,925,134">
+<area shape="rect" href="$df/de1/interface_rover_view.html#8a181d2397be0da51cac1b7be2584e93" title="+[RoverView getAngleMap]" alt="" coords="973,6,1160,32">
